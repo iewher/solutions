@@ -1,14 +1,12 @@
 function createCounter(n: number): () => number {
+  var count = n;
 
-    var count = n;
-    
-    return function() {
-        return count++;
-    }
+  return function () {
+    return count++;
+  };
 }
 
-
-/** 
+/**
  * const counter = createCounter(10)
  * counter() // 10
  * counter() // 11
