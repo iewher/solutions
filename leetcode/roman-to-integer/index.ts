@@ -1,27 +1,31 @@
 function romanToInt(s: string): number {
-  const split = s.split("");
-  const array = [];
-  let numbers: number = 0;
+  let numbers = 0;
+  if (s.length < 1) return 0;
 
-  const numerals = [
-    { symbol: "I", value: 1 },
-    { symbol: "V", value: 5 },
-    { symbol: "X", value: 10 },
-    { symbol: "L", value: 50 },
-    { symbol: "C", value: 100 },
-    { symbol: "D", value: 500 },
-    { symbol: "M", value: 1000 },
-  ];
+  let chars = ["I", "V", "X", "L", "C", "D", "M"];
 
   for (let i = 0; i < s.length; i++) {
-    if (split[i] === numerals[i].symbol) {
-      array.push(numerals[i].value);
-      numbers += array[i];
-      continue;
+    let next_char = i < s.length - 1 ? s[i + 1] : "";
+
+    if (chars.includes(s[i])) {
+      if (s[i] === "I") {
+        numbers += next_char === "V" || next_char === "X" ? -1 : +1;
+      } else if (s[i] === "X") {
+        numbers += next_char === "L" || next_char === "C" ? -10 : +10;
+      } else if (s[i] === "C") {
+        numbers += next_char === "D" || next_char === "M" ? -100 : +100;
+      } else if (s[i] === "V") {
+        numbers += 5;
+      } else if (s[i] === "L") {
+        numbers += 50;
+      } else if (s[i] === "D") {
+        numbers += 500;
+      } else if (s[i] === "M") {
+        numbers += 1000;
+      }
     }
   }
-
   return numbers;
 }
 
-romanToInt("IVX");
+romanToInt("IVV");
